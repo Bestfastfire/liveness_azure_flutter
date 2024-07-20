@@ -1,3 +1,5 @@
+library liveness_azure_flutter;
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -7,6 +9,8 @@ import 'src/interface/liveness_azure_platform_interface.dart';
 import 'src/utils/liveness_session.dart';
 import 'src/utils/liveness_result.dart';
 import 'src/utils/liveness_theme.dart';
+
+export 'src/utils/liveness_theme.dart';
 
 class LivenessAzureFlutter {
   /// It is not recommended to use this method in a real project, the session token must be obtained from the client backend
