@@ -1,0 +1,27 @@
+name: liveness_azure_flutter
+description: "A new Flutter project."
+version: 1.0.0
+homepage:
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+  flutter: '>=3.3.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  plugin_platform_interface: ^2.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.cleancode.liveness_azure_flutter
+        pluginClass: LivenessAzureFlutterPlugin
+      ios:
+        pluginClass: LivenessAzureFlutterPlugin
