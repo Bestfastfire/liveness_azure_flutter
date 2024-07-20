@@ -10,20 +10,15 @@ class MethodChannelLivenessAzureFlutter extends LivenessAzureFlutterPlatform {
   final methodChannel = const MethodChannel('liveness_azure_flutter');
 
   @override
-  Future<String?> initLiveness(String authTokenSession, {
-    LivenessTheme theme = const LivenessTheme(),
-    String? imagePath
-  }) async {
-    final args = {
-      'authTokenSession': authTokenSession,
-      ...theme.asMap
-    };
+  Future<String?> initLiveness(String authTokenSession,
+      {LivenessTheme theme = const LivenessTheme(), String? imagePath}) async {
+    final args = {'authTokenSession': authTokenSession, ...theme.asMap};
 
     return await methodChannel.invokeMethod<String>('initLiveness', args);
   }
 
   @override
-  Future<String?> getDeviceUID() async{
+  Future<String?> getDeviceUID() async {
     return await methodChannel.invokeMethod<String>('getDeviceUID');
   }
 }

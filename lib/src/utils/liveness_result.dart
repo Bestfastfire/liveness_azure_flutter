@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class LivenessResult{
+class LivenessResult {
   final String? livenessStatus;
   final String? failureReason;
   final String? verificationStatus;
@@ -9,16 +9,16 @@ class LivenessResult{
   final String? digest;
   final String? faceUid;
 
-  const LivenessResult({
-    required this.livenessStatus,
-    required this.failureReason,
-    required this.verificationStatus,
-    required this.confidence,
-    required this.resultId,
-    required this.digest,
-    required this.faceUid});
-  
-  factory LivenessResult.fromJson(data){
+  const LivenessResult(
+      {required this.livenessStatus,
+      required this.failureReason,
+      required this.verificationStatus,
+      required this.confidence,
+      required this.resultId,
+      required this.digest,
+      required this.faceUid});
+
+  factory LivenessResult.fromJson(data) {
     return LivenessResult(
         livenessStatus: data['livenessStatus'],
         failureReason: data['failureReason'],
@@ -31,12 +31,12 @@ class LivenessResult{
 
   @override
   String toString() => jsonEncode({
-    'livenessStatus': livenessStatus,
-    'failureReason': failureReason,
-    'verificationStatus': verificationStatus,
-    'confidence': confidence,
-    'resultId': resultId,
-    'digest': digest,
-    'faceUid': faceUid
-  });
+        'livenessStatus': livenessStatus,
+        'failureReason': failureReason,
+        'verificationStatus': verificationStatus,
+        'confidence': confidence,
+        'resultId': resultId,
+        'digest': digest,
+        'faceUid': faceUid
+      });
 }

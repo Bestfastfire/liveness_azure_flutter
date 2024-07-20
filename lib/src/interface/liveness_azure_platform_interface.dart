@@ -9,7 +9,8 @@ abstract class LivenessAzureFlutterPlatform extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static LivenessAzureFlutterPlatform _instance = MethodChannelLivenessAzureFlutter();
+  static LivenessAzureFlutterPlatform _instance =
+      MethodChannelLivenessAzureFlutter();
 
   /// The default instance of [LivenessAzurePlatform] to use.
   ///
@@ -26,7 +27,5 @@ abstract class LivenessAzureFlutterPlatform extends PlatformInterface {
 
   Future<String?> getDeviceUID();
 
-  Future<String?> initLiveness(String authTokenSession, {
-    LivenessTheme theme
-  });
+  Future<String?> initLiveness(String authTokenSession, {LivenessTheme theme});
 }
