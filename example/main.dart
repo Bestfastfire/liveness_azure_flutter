@@ -1,8 +1,7 @@
+import 'package:liveness_azure_flutter/liveness_azure_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-
-import 'package:flutter/services.dart';
-import 'package:liveness_azure_flutter/liveness_azure_flutter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,35 +15,39 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _livenessAzureFlutterPlugin = LivenessAzureFlutter();
-
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
+  Future<PermissionStatus> requestCameraPermission() async{
+    return Permission.camera.request();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      platformVersion = '';
+  Future initLiveness() async{
+    if(await requestCameraPermission() == PermissionStatus.granted){
+      final session = await LivenessAzureFlutter.createSession(
+          faceApiEndpoint: 'faceApiEndpoint',
+          apiKey: 'apikey1234');
 
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+      if(session != null){
+        try{
+          final liveness = await LivenessAzureFlutter.initLiveness(
+              authTokenSession: session.authSession,
+              theme: const LivenessTheme(
+                  feedbackNone: 'Hold Still.',
+                  feedbackLookAtCamera: 'Look at camera.',
+                  feedbackFaceNotCentered: 'Center your face in the circle.',
+                  feedbackMoveCloser: 'Too far away! Move in closer.',
+                  feedbackContinueToMoveCloser: 'Continue to move closer.',
+                  feedbackMoveBack: 'Too close! Move farther away.',
+                  feedbackReduceMovement: 'Too much movement.',
+                  feedbackSmile: 'Smile for the camera!',
+                  feedbackAttentionNotNeeded: 'Done, finishing up...'));
+
+          print('liveness result: ${liveness?.resultId}');
+
+        }catch(msg, stacktrace){
+          // error
+
+        }
+      }
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
   }
 
   @override
@@ -52,12 +55,18 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
-        ),
-      ),
-    );
+          title: const Text('Plugin example app')),
+        body: Center(child: FutureBuilder(
+            future: requestCameraPermission(),
+            builder: (c, snapshot){
+              if(snapshot.connectionState != ConnectionState.done){
+                return const CircularProgressIndicator();
+
+              }
+
+              return TextButton(
+                  onPressed: initLiveness,
+                  child: const Text("Init Liveness"));
+            }))));
   }
 }

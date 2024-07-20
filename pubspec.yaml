@@ -1,7 +1,7 @@
 name: liveness_azure_flutter
-description: "A new Flutter project."
+description: "Simple integration with liveness azure and flutter"
 version: 1.0.0
-homepage:
+homepage: https://github.com/Bestfastfire/liveness_azure_flutter
 
 environment:
   sdk: '>=2.12.0 <4.0.0'
@@ -16,7 +16,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
 
 flutter:
   plugin:
