@@ -1,16 +1,20 @@
-group = "com.cleancode.liveness_azure_flutter"
-version = "1.0-SNAPSHOT"
+group 'com.cleancode.liveness_azure_flutter'
+version '1.0-SNAPSHOT'
+
+def mavenUser = project.properties['mavenUser']
+def mavenPassword = project.properties['mavenPassword']
+println "Azure properties: $mavenUser | $mavenPassword"
 
 buildscript {
-    ext.kotlin_version = "1.7.10"
+    ext.kotlin_version = '1.9.20'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:7.3.0")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+        classpath 'com.android.tools.build:gradle:8.5.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -18,40 +22,48 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url 'https://pkgs.dev.azure.com/msface/SDK/_packaging/AzureAIVision/maven/v1'
+            name 'AzureAIVision'
+            credentials {
+                username "$mavenUser"
+                password "$mavenPassword"
+            }
+        }
     }
 }
 
-apply plugin: "com.android.library"
-apply plugin: "kotlin-android"
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-parcelize'
 
 android {
     if (project.android.hasProperty("namespace")) {
-        namespace = "com.cleancode.liveness_azure_flutter"
-    }
-
-    compileSdk = 34
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-
-    sourceSets {
-        main.java.srcDirs += "src/main/kotlin"
-        test.java.srcDirs += "src/test/kotlin"
+        namespace 'com.cleancode.liveness_azure_flutter'
     }
 
     defaultConfig {
-        minSdk = 21
+        compileSdk 33
+        minSdkVersion 24
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
     }
 
     dependencies {
-        testImplementation("org.jetbrains.kotlin:kotlin-test")
-        testImplementation("org.mockito:mockito-core:5.0.0")
+        testImplementation 'org.jetbrains.kotlin:kotlin-test'
+        testImplementation 'org.mockito:mockito-core:5.1.1'
     }
 
     testOptions {
@@ -59,10 +71,26 @@ android {
             useJUnitPlatform()
 
             testLogging {
-               events "passed", "skipped", "failed", "standardOut", "standardError"
-               outputs.upToDateWhen {false}
-               showStandardStreams = true
+                events "passed", "skipped", "failed", "standardOut", "standardError"
+                outputs.upToDateWhen {false}
+                showStandardStreams = true
             }
         }
     }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.azure.android:azure-core-http-okhttp:1.0.0-beta.14'
+    implementation "androidx.activity:activity-ktx:1.9.0"
+    implementation "com.azure.ai:azure-ai-vision-common:0.17.1-beta.1"
+    implementation "com.azure.ai:azure-ai-vision-faceanalyzer:0.17.1-beta.1"
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
 }
