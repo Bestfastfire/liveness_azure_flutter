@@ -1,6 +1,6 @@
 name: liveness_azure_flutter
 description: "Simple integration with liveness azure and flutter"
-version: 1.0.0
+version: 1.0.0+1
 homepage: https://github.com/Bestfastfire/liveness_azure_flutter
 
 environment:

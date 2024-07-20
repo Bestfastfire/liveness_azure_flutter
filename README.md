@@ -65,7 +65,7 @@ Future initLiveness() async{
                 final liveness = await LivenessAzureFlutter.initLiveness(
                     authTokenSession: session.authSession,
                     
-                    // You can customize texts feedback or leave deafult (exists too LivenessTheme.pt() to portugues)
+                    // You can customize texts feedback or leave default (exists too LivenessTheme.pt() to portuguese)
                     theme: const LivenessTheme(
                           feedbackNone: 'Hold Still.',
                           feedbackLookAtCamera: 'Look at camera.',
