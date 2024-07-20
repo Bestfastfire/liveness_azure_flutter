@@ -44,7 +44,7 @@ class LivenessAzureFlutter {
     final dio = Dio();
 
     FormData? formData;
-    if (verifyImage){
+    if (imagePath != null){
       final imageFile = File(imagePath);
       formData = FormData.fromMap({
         'Parameters': jsonEncode(parameters),
