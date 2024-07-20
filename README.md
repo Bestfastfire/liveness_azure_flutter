@@ -12,8 +12,7 @@ A Flutter plugin for iOS and Android for liveness with Azure AI API
 ## Android
 Follow this steps to generate your `accessToken`: [GET_FACE_ARTIFACTS_ACCESS](https://github.com/Azure-Samples/azure-ai-vision-sdk/blob/main/GET_FACE_ARTIFACTS_ACCESS.md)
 
-Then in your `gradle.properties` add this lines:
-For more info: [Android Azure AI](https://github.com/Azure-Samples/azure-ai-vision-sdk/blob/main/samples/kotlin/face/FaceAnalyzerSample/README.md)
+Then in your `gradle.properties` add this lines (For more info: [Android Azure AI](https://github.com/Azure-Samples/azure-ai-vision-sdk/blob/main/samples/kotlin/face/FaceAnalyzerSample/README.md)):
 
 ```
 maveUser=any_user
